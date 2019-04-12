@@ -11,10 +11,11 @@
 // ==/UserScript==
 
 (function () {
-    $('.ndPaywall').hide();
-    $('.mediabox').show();
-    $('.ndAritcle_headPic').show();
-    $('.ndArticle_margin').show();
+    let bodyEle = document.getElementsByTagName('body')[0];
+    let txt = bodyEle.innerHTML;
+    while (txt.indexOf('display:none') !== -1) txt = txt.replace('display:none', '');
+    bodyEle.innerHTML = txt;
+    document.getElementsByClassName('ndPaywall')[0].style.display = "none";
 
     let videoTag = $('#videobox script:not(script[type="text/javascript"])');
     if (videoTag.length > 0 && $('#video_player').length === 0) {
@@ -23,14 +24,15 @@
         let player = document.createElement('video');
         let vidSrc = document.createElement('source');
 
-        player.height = 444;
-        player.width = 790;
+        player.height = 400;
+        player.width = 711;
         player.controls = true;
 
         vidSrc.src = videoURL;
         vidSrc.type = 'video/mp4';
 
         player.appendChild(vidSrc);
-        $('#videobox')[0].appendChild(player);
+        document.getElementById('videobox').appendChild(player);
+        document.getElementById('videobox').style.paddingLeft = '70px';
     }
 })();
