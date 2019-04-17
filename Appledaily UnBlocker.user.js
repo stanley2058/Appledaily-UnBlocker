@@ -8,9 +8,22 @@
 // @match        https://*.appledaily.com/*
 // @grant        none
 // @run-at       document-end
+// @require      https://code.jquery.com/jquery-3.2.1.min.js
+// @require      https://code.jquery.com/jquery-migrate-3.0.1.js
 // ==/UserScript==
 
 (function () {
+    $.ajax({
+        url: window.location.href,
+        type:'GET',
+        success: function(data){
+            $('.ndArticle_leftColumn').html($(data).find('.ndArticle_leftColumn').html());
+            unblock();
+        }
+    });
+})();
+
+function unblock() {
     let bodyEle = document.getElementsByTagName('body')[0];
     let txt = bodyEle.innerHTML;
     while (txt.indexOf('display:none') !== -1) txt = txt.replace('display:none', '');
@@ -33,6 +46,6 @@
 
         player.appendChild(vidSrc);
         document.getElementById('videobox').appendChild(player);
-        document.getElementById('videobox').style.paddingLeft = '70px';
+        document.getElementById('videobox').style.paddingLeft = '30px';
     }
-})();
+}
