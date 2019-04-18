@@ -7,7 +7,7 @@
 // @match        http://*.appledaily.com/*
 // @match        https://*.appledaily.com/*
 // @grant        none
-// @run-at       document-end
+// @run-at       document-body
 // @require      https://code.jquery.com/jquery-3.2.1.min.js
 // @require      https://code.jquery.com/jquery-migrate-3.0.1.js
 // ==/UserScript==
