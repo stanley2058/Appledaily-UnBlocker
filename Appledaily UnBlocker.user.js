@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Appledaily UnBlocker
 // @namespace    STW
-// @version      1
+// @version      1.0.1
 // @description  unblock appledaily login
 // @author       STW
 // @match        http://*.appledaily.com/*
@@ -12,23 +12,15 @@
 // @require      https://code.jquery.com/jquery-migrate-3.0.1.js
 // ==/UserScript==
 
-(function () {
-    $.ajax({
-        url: window.location.href,
-        type:'GET',
-        success: function(data){
-            $('.ndArticle_leftColumn').html($(data).find('.ndArticle_leftColumn').html());
-            unblock();
-        }
-    });
-})();
+$.get(window.location.href, function(data) {
+    $('.ndArticle_leftColumn').html($(data).find('.ndArticle_leftColumn').html().replace('userLogin = OMOSDK.auth().getUserInfo().isLoggedIn || false;', 'userLogin = true;'));
+    unblock();
+});
 
 function unblock() {
-    let bodyEle = document.getElementsByTagName('body')[0];
-    let txt = bodyEle.innerHTML;
-    while (txt.indexOf('display:none') !== -1) txt = txt.replace('display:none', '');
-    bodyEle.innerHTML = txt;
-    document.getElementsByClassName('ndPaywall')[0].style.display = "none";
+    $('.ndPaywall').remove();
+    $('.ndArticle_margin').show();
+    $('.mediabox').show();
 
     let videoTag = $('#videobox script:not(script[type="text/javascript"])');
     if (videoTag.length > 0 && $('#video_player').length === 0) {
